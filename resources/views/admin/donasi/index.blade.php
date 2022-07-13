@@ -39,7 +39,11 @@
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
+                                                        <th>Nomor Donasi</th>
                                                         <th>Nama Donatur</th>
+                                                        <th>Email Donatur</th>
+                                                        <th>Alamat Donatur</th>
+                                                        <th>No Hp Donatur</th>
                                                         <th>Tanggal Donasi</th>
                                                         <th>Judul Buku</th>
                                                         <th>Jumlah Buku</th>
@@ -52,7 +56,11 @@
                                                     @foreach ($validasi as $i => $row)
                                                         <tr>
                                                             <td>{{ ++$i }}</td>
-                                                            <td>{{ $row->user->name }}</td>
+                                                            <td>{{ $row->nomor_donasi }}</td>
+                                                            <td>{{ $row->nama }}</td>
+                                                            <td>{{ $row->email }}</td>
+                                                            <td>{{ $row->alamat }}</td>
+                                                            <td>{{ $row->no_hp }}</td>
                                                             <td>{{ date('l, d F Y', strtotime($row->created_at)) }}</td>
                                                             <td>{{ $row->judul_buku }}</td>
                                                             <td>{{ $row->jumlah_buku }}</td>
@@ -78,6 +86,11 @@
                                                     <thead>
                                                         <tr>
                                                             <th>No</th>
+                                                            <th>Nomor Donasi</th>
+                                                            <th>Nama Donatur</th>
+                                                            <th>Email Donatur</th>
+                                                            <th>Alamat Donatur</th>
+                                                            <th>No Hp Donatur</th>
                                                             <th>Judul Buku</th>
                                                             <th>Jumlah Buku</th>
                                                             <th>Jenis Buku</th>
@@ -90,6 +103,11 @@
                                                     <tbody>
                                                         <tr>
                                                             <td>{{ ++$i }}</td>
+                                                            <td>{{ $row->nomor_donasi }}</td>
+                                                            <td>{{ $row->nama }}</td>
+                                                            <td>{{ $row->email }}</td>
+                                                            <td>{{ $row->alamat }}</td>
+                                                            <td>{{ $row->no_hp }}</td>
                                                             <td>{{ $row->judul_buku }}</td>
                                                             <td>{{ $row->jumlah_buku }}</td>
                                                             <td>{{ $row->jenis_buku }}</td>
@@ -143,24 +161,37 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>Nomor Donasi</th>
                                             <th>Nama Donatur</th>
+                                            <th>Email Donatur</th>
+                                            <th>Alamat Donatur</th>
+                                            <th>No Hp Donatur</th>
                                             <th>Tanggal Donasi</th>
                                             <th>Judul Buku</th>
                                             <th>Jumlah Buku</th>
                                             <th>Jenis Buku</th>
                                             <th>Foto Cover</th>
+                                            <th>Upload Bukti</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($tervalidasi as $i => $row)
                                             <tr>
                                                 <td>{{ ++$i }}</td>
-                                                <td>{{ $row->user->name }}</td>
+                                                <td>{{ $row->nomor_donasi }}</td>
+                                                <td>{{ $row->nama }}</td>
+                                                <td>{{ $row->email }}</td>
+                                                <td>{{ $row->alamat }}</td>
+                                                <td>{{ $row->no_hp }}</td>
                                                 <td>{{ date('l, d F Y', strtotime($row->created_at)) }}</td>
                                                 <td>{{ $row->judul_buku }}</td>
                                                 <td>{{ $row->jumlah_buku }}</td>
                                                 <td>{{ $row->jenis_buku }}</td>
-                                                <td><img src="{{ url('foto_cover/' . $row->foto_cover) }}" alt=""></td>
+                                                <td><img src="{{ url('foto_cover/' . $row->foto_cover) }}" width="50px">
+                                                </td>
+                                                <td><img src="{{ url('upload_bukti/' . $row->upload_bukti) }}"
+                                                        width="50px">
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>

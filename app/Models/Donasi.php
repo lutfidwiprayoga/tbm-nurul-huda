@@ -10,6 +10,11 @@ class Donasi extends Model
     use HasFactory;
     protected $table = 'donasis';
     protected $fillable = [
+        'nomor_donasi',
+        'nama',
+        'email',
+        'alamat',
+        'no_hp',
         'user_id',
         'judul_buku',
         'jumlah_buku',

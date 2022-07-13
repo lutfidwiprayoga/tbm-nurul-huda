@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Donatur;
 
 use App\Http\Controllers\Controller;
 use App\Models\Donasi;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DonasiController extends Controller
 {
@@ -41,17 +43,27 @@ class DonasiController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'judul_buku' => 'required',
             'jumlah_buku' => 'required',
             'jenis_buku' => 'required',
             'foto_cover' => 'required|max:200|mimes:png,jpg,jpeg,svg',
         ]);
+        $now = Carbon::now();
+        $tanggal = $now->day . $now->month . $now->year;
+        $max_id = DB::table('donasis')->max('id');
+        $nomor_urut = $max_id + 1;
         $file = $request->foto_cover;
-        $filename = Auth::user()->name . '.' . $file->extension();
+        $filename = $request->nama . '.' . $file->extension();
         $file->move(public_path('foto_cover'), $filename);
         Donasi::create([
-            'user_id' => Auth::user()->id,
+            // 'user_id' => Auth::user()->id,
+            'nomor_donasi' => 'DNTBM' . '-' . $tanggal . '00' . $nomor_urut,
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'alamat' => $request->alamat,
+            'no_hp' => $request->no_hp,
             'judul_buku' => $request->judul_buku,
             'jumlah_buku' => $request->jumlah_buku,
             'jenis_buku' => $request->jenis_buku,
@@ -97,10 +109,10 @@ class DonasiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $file = $request->upload_bukti;
-        $filename = Auth::user()->name . '.' . $file->extension();
-        $file->move(public_path('upload_bukti'), $filename);
         $donasi = Donasi::find($id);
+        $file = $request->upload_bukti;
+        $filename = $donasi->nama . '.' . $file->extension();
+        $file->move(public_path('upload_bukti'), $filename);
         $donasi->status = 'Dikirim';
         $donasi->upload_bukti = $filename;
         $donasi->save();

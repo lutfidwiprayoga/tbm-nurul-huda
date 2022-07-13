@@ -22,9 +22,9 @@ class DonasiController extends Controller
 
     public function index()
     {
-        $validasi = Donasi::where('status', 'Menunggu Verifikasi')->get();
-        $diterima = Donasi::where('status', 'Dikirim')->get();
-        $tervalidasi = Donasi::where('status', 'Sudah Diterima')->get();
+        $validasi = Donasi::latest()->where('status', 'Menunggu Verifikasi')->get();
+        $diterima = Donasi::latest()->where('status', 'Dikirim')->get();
+        $tervalidasi = Donasi::latest()->where('status', 'Sudah Diterima')->get();
         return view('admin.donasi.index', compact('validasi', 'tervalidasi', 'diterima'));
     }
 
