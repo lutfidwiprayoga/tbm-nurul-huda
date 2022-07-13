@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\JadwalTBMController;
 use App\Http\Controllers\Admin\MuridController;
 use App\Http\Controllers\Admin\PeminjamanBukuController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Donatur\CariController as DonaturCariController;
 use App\Http\Controllers\Donatur\DonasiController as DonaturDonasiController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('donatur.donasi.home');
 });
 Route::get('/coba', function () {
     return view('admin.dashboard2');
@@ -44,4 +45,5 @@ Route::prefix('admin')->group(function () {
 });
 Route::prefix('donatur')->group(function () {
     Route::resource('/donatur', DonaturDonasiController::class);
+    Route::get('/caridonasi', [DonaturCariController::class, 'cari'])->name('donasi.cari');
 });
