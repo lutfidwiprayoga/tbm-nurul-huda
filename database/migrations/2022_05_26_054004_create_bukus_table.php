@@ -21,7 +21,6 @@ class CreateBukusTable extends Migration
             $table->string('tahun_terbit');
             $table->string('jumlah_halaman');
             $table->string('jumlah_buku');
-            $table->string('jenis_buku');
             $table->string('kategori');
             $table->string('foto_cover');
             $table->timestamps();

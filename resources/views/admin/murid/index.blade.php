@@ -25,7 +25,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="table-responsive">
-                                <table class="display expandable-table" style="width:100%">
+                                <table class="display expandable-table" style="width:100%" id="table-report">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -116,4 +116,11 @@
             </div>
         </div>
     </div>
+@endsection
+@section('javascript')
+    <script>
+        $(document).ready(function() {
+            var tableLaporan = $('#table-report').DataTable({});
+        });
+    </script>
 @endsection

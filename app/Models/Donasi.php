@@ -18,7 +18,7 @@ class Donasi extends Model
         'user_id',
         'judul_buku',
         'jumlah_buku',
-        'jenis_buku',
+        'kategori_id',
         'foto_cover',
         'status',
         'upload_bukti',
@@ -27,5 +27,9 @@ class Donasi extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'kategori_id', 'id');
     }
 }

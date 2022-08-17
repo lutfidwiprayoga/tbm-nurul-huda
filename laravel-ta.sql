@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 15 Jun 2022 pada 08.41
--- Versi server: 10.4.18-MariaDB
--- Versi PHP: 8.0.3
+-- Waktu pembuatan: 22 Jul 2022 pada 11.52
+-- Versi server: 10.4.24-MariaDB
+-- Versi PHP: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -35,8 +35,7 @@ CREATE TABLE `bukus` (
   `tahun_terbit` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jumlah_halaman` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jumlah_buku` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `jenis_buku` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `kategori` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `kategori_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `foto_cover` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -46,11 +45,12 @@ CREATE TABLE `bukus` (
 -- Dumping data untuk tabel `bukus`
 --
 
-INSERT INTO `bukus` (`id`, `kode_buku`, `judul_buku`, `nama_pengarang`, `tahun_terbit`, `jumlah_halaman`, `jumlah_buku`, `jenis_buku`, `kategori`, `foto_cover`, `created_at`, `updated_at`) VALUES
-(1, 'TBM-162022001', 'Kisah Si Kancil', 'Si Pengarang', '2001', '100', '2', 'Dongeng', 'Komik', 'TBM.png', '2022-05-28 07:52:06', '2022-06-01 09:29:13'),
-(2, 'TBM-162022002', 'Lagu Tradisional', 'WR. Supratman', '1999', '50', '4', 'Lagu Anak', 'Lainnya', 'logo.svg', '2022-05-29 22:39:47', '2022-06-01 08:26:07'),
-(3, 'TBM-162022003', 'Ari anak terlantar', 'Suprimin', '2001', '100', '2', 'Dongeng', 'Pelajaran', 'admin.jpg', '2022-06-01 05:54:26', '2022-06-01 08:21:44'),
-(5, 'TBM-262022004', 'Diki vs Puntent', 'Suprimin', '2022', '200', '3', 'Fiksi', 'Pelajaran', 'logo2.png', '2022-06-01 20:44:30', '2022-06-01 20:44:30');
+INSERT INTO `bukus` (`id`, `kode_buku`, `judul_buku`, `nama_pengarang`, `tahun_terbit`, `jumlah_halaman`, `jumlah_buku`, `kategori_id`, `foto_cover`, `created_at`, `updated_at`) VALUES
+(1, 'TBM-162022001', 'Kisah Si Kancil', 'Si Pengarang', '2001', '100', '2', '5', 'TBM.png', '2022-05-28 07:52:06', '2022-06-01 09:29:13'),
+(2, 'TBM-162022002', 'Lagu Tradisional', 'WR. Supratman', '1999', '50', '4', '4', 'logo.svg', '2022-05-29 22:39:47', '2022-06-01 08:26:07'),
+(3, 'TBM-162022003', 'Ari anak terlantar', 'Suprimin', '2001', '100', '2', '4', 'admin.jpg', '2022-06-01 05:54:26', '2022-06-01 08:21:44'),
+(5, 'TBM-262022004', 'Diki vs Puntent', 'Suprimin', '2022', '200', '3', '4', 'logo2.png', '2022-06-01 20:44:30', '2022-06-01 20:44:30'),
+(7, 'TBM-2272022006', 'Kisah Sang Rasullah', 'Imam Bukhori', '1000', '1500', '5', '1', 'TBM-2272022006.jpg', '2022-07-21 20:54:54', '2022-07-21 20:54:54');
 
 -- --------------------------------------------------------
 
@@ -68,7 +68,7 @@ CREATE TABLE `donasis` (
   `no_hp` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `judul_buku` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jumlah_buku` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `jenis_buku` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `kategori_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `foto_cover` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `upload_bukti` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -80,13 +80,17 @@ CREATE TABLE `donasis` (
 -- Dumping data untuk tabel `donasis`
 --
 
-INSERT INTO `donasis` (`id`, `nomor_donasi`, `user_id`, `nama`, `email`, `alamat`, `no_hp`, `judul_buku`, `jumlah_buku`, `jenis_buku`, `status`, `foto_cover`, `upload_bukti`, `created_at`, `updated_at`) VALUES
-(1, NULL, 3, '', '', '', '', 'Timun Mas', '2', 'Dongeng', 'Sudah Diterima', NULL, NULL, '2022-05-29 06:45:54', '2022-05-28 23:54:33'),
-(2, NULL, 3, '', '', '', '', 'Si Anak Kembar', '5', 'Dongeng', 'Menunggu Verifikasi', 'logo-white.svg', NULL, '2022-05-29 22:26:20', '2022-05-29 22:26:20'),
-(3, NULL, 3, '', '', '', '', 'Malin Kundang', '4', 'Dongeng', 'Sudah Diterima', 'logo-mini.svg', 'people.png', '2022-05-30 20:35:24', '2022-06-01 02:08:58'),
-(4, NULL, 3, '', '', '', '', 'Laskar Pelangi', '2', 'Novel', 'Sudah Diterima', 'admin.jpg', 'placeholder.png', '2022-06-01 08:27:43', '2022-06-01 08:35:12'),
-(5, NULL, 3, '', '', '', '', 'Danau Toba', '2', 'Dongeng', 'Dikirim', 'Dias.jpg', 'Dias.jpg', '2022-06-01 21:13:00', '2022-06-01 21:16:29'),
-(6, 'DNTBM-1462022006', NULL, 'Malik Fajar', 'malik@gmail.com', 'Sukojati', '08221235452', 'Si Paling Pintar', '2', 'Dongeng', 'Sudah Diterima', 'Malik Fajar.png', 'Malik Fajar.png', '2022-06-14 04:06:13', '2022-06-14 23:36:12');
+INSERT INTO `donasis` (`id`, `nomor_donasi`, `user_id`, `nama`, `email`, `alamat`, `no_hp`, `judul_buku`, `jumlah_buku`, `kategori_id`, `status`, `foto_cover`, `upload_bukti`, `created_at`, `updated_at`) VALUES
+(1, NULL, 3, '', '', '', '', 'Timun Mas', '2', '1', 'Sudah Diterima', NULL, NULL, '2022-05-29 06:45:54', '2022-05-28 23:54:33'),
+(2, NULL, 3, '', '', '', '', 'Si Anak Kembar', '5', '1', 'Sudah Diterima', 'logo-white.svg', NULL, '2022-06-29 22:26:20', '2022-07-21 21:25:38'),
+(3, NULL, 3, '', '', '', '', 'Malin Kundang', '4', '1', 'Sudah Diterima', 'logo-mini.svg', 'people.png', '2022-07-30 20:35:24', '2022-06-01 02:08:58'),
+(4, NULL, 3, '', '', '', '', 'Laskar Pelangi', '2', '2', 'Sudah Diterima', 'admin.jpg', 'placeholder.png', '2022-06-01 08:27:43', '2022-06-01 08:35:12'),
+(5, NULL, 3, '', '', '', '', 'Danau Toba', '2', '1', 'Sudah Diterima', 'Dias.jpg', 'Dias.jpg', '2022-06-01 21:13:00', '2022-07-21 21:25:23'),
+(6, 'DNTBM-1462022006', NULL, 'Malik Fajar', 'malik@gmail.com', 'Sukojati', '08221235452', 'Si Paling Pintar', '2', '1', 'Sudah Diterima', 'Malik Fajar.png', 'Malik Fajar.png', '2022-07-14 04:06:13', '2022-06-14 23:36:12'),
+(7, 'DNTBM-2072022007', NULL, 'Dias', 'dias@gmail.com', 'Banyuwangi', '0812221232111', 'Si anak Paling', '2', '1', 'Sudah Diterima', 'Dias.jpg', NULL, '2022-07-20 05:11:16', '2022-07-21 21:25:15'),
+(28, 'DNTBM-2272022008', NULL, 'Dimas Pangest', 'dimas@gmail.com', 'Banyuwangi', '082212342112', 'Omar Bin Khattab', '5', '1', 'Sudah Diterima', 'Dimas Pangest.jpg', NULL, '2022-07-21 21:21:58', '2022-07-21 21:25:32'),
+(29, 'DNTBM-22720220029', NULL, 'Dilan', 'dilan@gmail.com', 'Bulusan', '082232124452', 'Utsman Bin Affan', '5', '1', 'Sudah Diterima', 'Dilan.jpg', NULL, '2022-07-21 21:24:32', '2022-07-21 21:25:34'),
+(30, 'DNTBM-22720220030', NULL, 'Fikri', 'fikri@gmail.com', 'banyuwangi', '08922123212', 'Ali Bin Abi Thalib', '5', '1', 'Menunggu Verifikasi', 'Fikri.jpg', NULL, '2022-07-22 02:28:12', '2022-07-22 02:28:12');
 
 -- --------------------------------------------------------
 
@@ -131,6 +135,30 @@ INSERT INTO `jadwals` (`id`, `nama_pengajar`, `tanggal`, `mata_pelajaran`, `crea
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `kategoris`
+--
+
+CREATE TABLE `kategoris` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `kategoris`
+--
+
+INSERT INTO `kategoris` (`id`, `nama`, `created_at`, `updated_at`) VALUES
+(1, 'Dongeng', '2022-07-21 20:23:04', '2022-07-21 20:23:04'),
+(2, 'Novel', '2022-07-21 20:41:23', '2022-07-21 20:41:23'),
+(3, 'Fiksi', '2022-07-21 20:41:28', '2022-07-21 20:41:28'),
+(4, 'Pelajaran', '2022-07-21 20:41:38', '2022-07-21 20:41:38'),
+(5, 'Komik', '2022-07-21 20:41:44', '2022-07-21 20:41:44');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `migrations`
 --
 
@@ -153,7 +181,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (6, '2022_05_26_054228_create_jadwals_table', 1),
 (7, '2022_05_26_055635_create_donasis_table', 1),
 (8, '2022_05_26_063522_create_peminjaman_bukus_table', 1),
-(9, '2022_05_26_071901_create_murids_table', 1);
+(9, '2022_05_26_071901_create_murids_table', 1),
+(10, '2022_07_22_031823_create_kategoris_table', 2);
 
 -- --------------------------------------------------------
 
@@ -295,6 +324,12 @@ ALTER TABLE `jadwals`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `kategoris`
+--
+ALTER TABLE `kategoris`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
@@ -341,13 +376,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `bukus`
 --
 ALTER TABLE `bukus`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `donasis`
 --
 ALTER TABLE `donasis`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT untuk tabel `failed_jobs`
@@ -362,10 +397,16 @@ ALTER TABLE `jadwals`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT untuk tabel `kategoris`
+--
+ALTER TABLE `kategoris`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `murids`

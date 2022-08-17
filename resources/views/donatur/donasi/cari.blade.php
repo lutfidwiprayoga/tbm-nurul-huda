@@ -57,9 +57,9 @@
                                         <th>{{ $item->judul_buku }}</th>
                                     </tr>
                                     <tr>
-                                        <th width="50%">Jenis Buku Donasi</th>
+                                        <th width="50%">Kategori Buku Donasi</th>
                                         <th width="30px">:</th>
-                                        <th>{{ $item->jenis_buku }}</th>
+                                        <th>{{ $item->kategori->nama }}</th>
                                     </tr>
                                     <tr>
                                         <th width="50%">Jumlah Buku Donasi</th>
@@ -89,7 +89,9 @@
                                         <button class="btn btn-success">Selesai</button>
                                     @endif
                                 </div>
+    
                             </div>
+                        
                         @endforeach
                     </div>
                 </div>
@@ -125,8 +127,8 @@
                                 <strong>Form Upload Bukti Donasi Buku</strong>
                             </div>
                             <div class="card-body">
-                                <form class="form-sample" action="{{ route('donatur.update', $row->id) }}"
-                                    method="post" enctype="multipart/form-data">
+                                <form class="form-sample" action="{{ route('donatur.update', $row->id) }}" method="post"
+                                    enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
                                     <div class="row">
@@ -161,7 +163,8 @@
                                         </div>
                                     </div>
                                     <div class="row mt-3" style="justify-content: center">
-                                        <button type="button" class="btn btn-light mr-2" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-light mr-2"
+                                            data-dismiss="modal">Close</button>
                                         <button type="submit" class="btn btn-success">
                                             <i class="fa fa-dot-circle-o"></i> Simpan
                                         </button>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Buku;
+use App\Models\Kategori;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -28,7 +29,8 @@ class DataBukuController extends Controller
         $max_id = DB::table('bukus')->max('id');
         $nomor_urut = $max_id + 1;
         $buku = Buku::latest()->get();
-        return view('admin.databuku.index', compact('buku', 'tanggal', 'nomor_urut'));
+        $kategori = Kategori::get();
+        return view('admin.databuku.index', compact('buku', 'tanggal', 'nomor_urut', 'kategori'));
     }
 
     /**
@@ -56,8 +58,7 @@ class DataBukuController extends Controller
             'tahun_terbit' => 'required',
             'jumlah_halaman' => 'required',
             'jumlah_buku' => 'required',
-            'jenis_buku' => 'required',
-            'kategori' => 'required',
+            'kategori_id' => 'required',
             'foto_cover' => 'required|mimes:png,jpg,jpeg,svg',
         ]);
         $file = $request->foto_cover;
@@ -70,8 +71,7 @@ class DataBukuController extends Controller
             'tahun_terbit' => $request->tahun_terbit,
             'jumlah_halaman' => $request->jumlah_halaman,
             'jumlah_buku' => $request->jumlah_buku,
-            'jenis_buku' => $request->jenis_buku,
-            'kategori' => $request->kategori,
+            'kategori_id' => $request->kategori_id,
             'foto_cover' => $filename,
         ]);
         // if ($request->hasFile('foto_cover')) {

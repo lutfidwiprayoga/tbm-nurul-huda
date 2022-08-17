@@ -25,7 +25,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="table-responsive">
-                                <table class="display expandable-table" style="width:100%">
+                                <table class="display expandable-table" style="width:100%" id="table-report">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -40,12 +40,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($pinjam as $i => $row)
+                                        @foreach ($peminjaman as $i => $row)
                                             <tr>
                                                 <td>{{ ++$i }}</td>
                                                 <td>{{ $row->murid->nama }}</td>
-                                                <td>{{ $row->buku->judul_buku }}</td>
-                                                <td><img src="{{ url('foto_cover/' . $row->buku->foto_cover) }}"
+                                                <td>{{ $row->bukus->judul_buku }}</td>
+                                                <td><img src="{{ url('foto_cover/' . $row->bukus->foto_cover) }}"
                                                         width="50px">
                                                 </td>
                                                 <td>{{ date('l d M Y H:i:s', strtotime($row->tanggal_pinjam)) }}</td>
@@ -157,4 +157,11 @@
             </div>
         </div>
     </div>
+@endsection
+@section('javascript')
+    <script>
+        $(document).ready(function() {
+            var tableLaporan = $('#table-report').DataTable({});
+        });
+    </script>
 @endsection

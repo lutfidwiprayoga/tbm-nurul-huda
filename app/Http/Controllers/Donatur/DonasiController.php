@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Donatur;
 
 use App\Http\Controllers\Controller;
+use App\Mail\DonaturMail;
 use App\Models\Donasi;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class DonasiController extends Controller
 {
@@ -47,7 +49,7 @@ class DonasiController extends Controller
         $request->validate([
             'judul_buku' => 'required',
             'jumlah_buku' => 'required',
-            'jenis_buku' => 'required',
+            'kategori_id' => 'required',
             'foto_cover' => 'required|max:200|mimes:png,jpg,jpeg,svg',
         ]);
         $now = Carbon::now();
@@ -57,7 +59,7 @@ class DonasiController extends Controller
         $file = $request->foto_cover;
         $filename = $request->nama . '.' . $file->extension();
         $file->move(public_path('foto_cover'), $filename);
-        Donasi::create([
+        $donasi = Donasi::create([
             // 'user_id' => Auth::user()->id,
             'nomor_donasi' => 'DNTBM' . '-' . $tanggal . '00' . $nomor_urut,
             'nama' => $request->nama,
@@ -66,7 +68,7 @@ class DonasiController extends Controller
             'no_hp' => $request->no_hp,
             'judul_buku' => $request->judul_buku,
             'jumlah_buku' => $request->jumlah_buku,
-            'jenis_buku' => $request->jenis_buku,
+            'kategori_id' => $request->kategori_id,
             'status' => 'Menunggu Verifikasi',
             'foto_cover' => $filename,
         ]);
@@ -75,7 +77,20 @@ class DonasiController extends Controller
         //     $donasi->foto_cover = $request->file('foto_cover')->getClientOriginalName();
         //     $donasi->save();
         // }
-        return redirect()->back()->with('sukses', 'data buku berhasil disimpan');
+        $data = array(
+            'nama' => $donasi->nama,
+            'nomor_donasi' => $donasi->nomor_donasi,
+            'email' => $donasi->email,
+            'no_hp' => $donasi->no_hp,
+            'judul_buku' => $donasi->judul_buku,
+            'jenis_buku' => $donasi->jenis_buku,
+            'jumlah_buku' => $donasi->jumlah_buku,
+            'created_at' => $donasi->created_at,
+        );
+        // dd($donasi->email);
+        Mail::to($donasi->email)->send(new DonaturMail($data));
+        // dd($aaa);
+        return redirect()->route('donatur.edit', $donasi->id)->with('sukses', 'data buku berhasil disimpan');
     }
 
     /**
@@ -97,7 +112,8 @@ class DonasiController extends Controller
      */
     public function edit($id)
     {
-        //
+        $donasi = Donasi::find($id);
+        return view('donatur.donasi.edit', compact('donasi'));
     }
 
     /**

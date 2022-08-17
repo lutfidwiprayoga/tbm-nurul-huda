@@ -32,12 +32,12 @@
                         <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN
                             IN</button>
                     </div>
-                    <div class="my-2 d-flex justify-content-between align-items-center">
+                    <!-- <div class="my-2 d-flex justify-content-between align-items-center">
                         <div class="form-check">
                             Don't have an account? <a href="{{ route('register') }}" class="text-primary">Create</a>
                         </div>
                         <a href="{{ route('password.request') }}" class="auth-link text-black">Forgot password?</a>
-                    </div>
+                    </div> -->
                 </form>
             </div>
         </div>

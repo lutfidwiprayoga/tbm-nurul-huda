@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('template') }}/vendors/feather/feather.css">
     <link rel="stylesheet" href="{{ asset('template') }}/vendors/ti-icons/css/themify-icons.css">
     <link rel="stylesheet" href="{{ asset('template') }}/vendors/css/vendor.bundle.base.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <link rel="stylesheet" href="{{ asset('template') }}/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
@@ -46,6 +47,8 @@
     </div>
     <!-- container-scroller -->
 
+    <!--JS -->
+    @yield('javascript')
     <!-- plugins:js -->
     <script src="{{ asset('template') }}/vendors/js/vendor.bundle.base.js"></script>
     <!-- endinject -->

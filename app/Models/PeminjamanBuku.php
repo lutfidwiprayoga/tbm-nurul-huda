@@ -19,7 +19,7 @@ class PeminjamanBuku extends Model
         'keterangan'
     ];
 
-    public function buku()
+    public function bukus()
     {
         return $this->belongsTo(Buku::class, 'buku_id', 'id');
     }

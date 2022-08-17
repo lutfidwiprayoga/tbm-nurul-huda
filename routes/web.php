@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\CetakPDFController;
 use App\Http\Controllers\Admin\DataBukuController;
 use App\Http\Controllers\Admin\DonasiController;
 use App\Http\Controllers\Admin\JadwalTBMController;
+use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\MuridController;
 use App\Http\Controllers\Admin\PeminjamanBukuController;
 use App\Http\Controllers\DashboardController;
@@ -35,6 +37,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
 Route::prefix('admin')->group(function () {
+    Route::resource('/kategori', KategoriController::class);
     Route::resource('/buku', DataBukuController::class);
     Route::resource('/jadwal', JadwalTBMController::class);
     Route::resource('/donasi', DonasiController::class);
@@ -42,6 +45,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/pinjambuku', [PeminjamanBukuController::class, 'index'])->name('pinjambuku.index');
     Route::post('/pinjambuku/tambah', [PeminjamanBukuController::class, 'pinjam'])->name('pinjambuku.pinjam');
     Route::put('/pinjambuku/kembali/{id}', [PeminjamanBukuController::class, 'kembali'])->name('pinjambuku.kembali');
+    Route::get('/cetakpdf', [CetakPDFController::class, 'donasiPDF'])->name('cetakpdf.donasi');
 });
 Route::prefix('donatur')->group(function () {
     Route::resource('/donatur', DonaturDonasiController::class);

@@ -8,8 +8,7 @@
         </li>
         @if (Auth::user()->role_user == 'admin')
             <li class="nav-item {{ request()->is('admin/buku*') ? 'active' : '' }}">
-                <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false"
-                    aria-controls="error">
+                <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
                     <i class="icon-book menu-icon"></i>
                     <span class="menu-title">Buku</span>
                     <i class="menu-arrow"></i>
@@ -17,6 +16,9 @@
                 <div class="collapse" id="error">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"> <a class="nav-link" href="{{ route('buku.index') }}">Data
+                                Buku
+                            </a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{{ route('kategori.index') }}">Kategori
                                 Buku
                             </a></li>
                         <li class="nav-item"> <a class="nav-link" href="{{ route('pinjambuku.index') }}">

@@ -25,7 +25,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="table-responsive">
-                                <table class="display expandable-table" style="width:100%">
+                                <table class="display expandable-table" style="width:100%" id="table-report">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -35,8 +35,7 @@
                                             <th>Tahun Terbit</th>
                                             <th>Jumlah Halaman</th>
                                             <th>Jumlah Buku</th>
-                                            <th>Jenis Buku</th>
-                                            <th>Kategori</th>
+                                            <th>Kategori Buku</th>
                                             <th>Foto Cover</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -51,12 +50,11 @@
                                                 <td>{{ $row->tahun_terbit }}</td>
                                                 <td>{{ $row->jumlah_halaman }}</td>
                                                 <td>{{ $row->jumlah_buku }}</td>
-                                                <td>{{ $row->jenis_buku }}</td>
-                                                <td>{{ $row->kategori }}</td>
+                                                <td>{{ $row->kategori->nama }}</td>
                                                 <td><img src="{{ url('foto_cover/' . $row->foto_cover) }}" width="50px">
                                                 </td>
-                                                <td><button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
-                                                        data-target="#updateBuku{{ $row->id }}">
+                                                <td><button type="button" class="btn btn-warning btn-sm"
+                                                        data-toggle="modal" data-target="#updateBuku{{ $row->id }}">
                                                         Update
                                                     </button>
                                                     <form action="{{ route('buku.destroy', $row->id) }}" method="POST">
@@ -123,20 +121,13 @@
                                             </div>
                                         </div>
                                         <div class="form-group row mb-0">
-                                            <label class="col-sm-4 col-form-label">Jenis Buku</label>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control" name="jenis_buku" required>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mb-0">
                                             <label class="col-sm-4 col-form-label">Kategori</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control" name="kategori">
+                                                <select class="form-control" name="kategori_id">
                                                     <option selected disabled>Please select</option>
-                                                    <option value="Novel">Novel</option>
-                                                    <option value="Komik">Komik</option>
-                                                    <option value="Pelajaran">Pelajaran</option>
-                                                    <option value="Lainnya">Lainnya</option>
+                                                    @foreach ($kategori as $kt)
+                                                        <option value="{{ $kt->id }}">{{ $kt->nama }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -145,7 +136,8 @@
                                             <div class="col-sm-8">
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <button class="btn btn-sm btn-primary" type="button">Upload</button>
+                                                        <button class="btn btn-sm btn-primary"
+                                                            type="button">Upload</button>
                                                     </div>
                                                     <input type="file" class="form-control" name="foto_cover" required>
                                                 </div>
@@ -166,7 +158,7 @@
             </div>
         </div>
     </div>
-    <!-- Modal Tambah data-->
+    <!-- Modal Update data-->
     @foreach ($buku as $i => $row)
         <div class="modal fade" id="updateBuku{{ $row->id }}" tabindex="-1" aria-labelledby="updateBukuLabel"
             aria-hidden="true">
@@ -207,4 +199,11 @@
             </div>
         </div>
     @endforeach
+@endsection
+@section('javascript')
+    <script>
+        $(document).ready(function() {
+            var tableLaporan = $('#table-report').DataTable({});
+        });
+    </script>
 @endsection

@@ -89,12 +89,12 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">Jenis Buku</label>
+                                <label class="col-sm-4 col-form-label">Kategori Buku</label>
                                 <div class="col-sm-8">
-                                    <select name="jenis_buku" id="jenis_buku" class="form-control">
-                                        <option value="Dongeng">Dongeng</option>
-                                        <option value="Komik">Komik</option>
-                                        <option value="Pelajaran">Pelajaran</option>
+                                    <select name="kategori_id" id="kategori_id" class="form-control">
+                                        @foreach ($kategori as $kt)
+                                            <option value="{{ $kt->id }}">{{ $kt->nama }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

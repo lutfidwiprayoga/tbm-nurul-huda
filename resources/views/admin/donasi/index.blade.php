@@ -35,7 +35,7 @@
                                 <div class="tab-pane fade active show" id="home1" role="tabpanel">
                                     <div class="pd-20">
                                         <div class="table-responsive">
-                                            <table class="display expandable-table" style="width:100%">
+                                            <table class="display expandable-table" style="width:100%" id="table-report1">
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
@@ -47,7 +47,7 @@
                                                         <th>Tanggal Donasi</th>
                                                         <th>Judul Buku</th>
                                                         <th>Jumlah Buku</th>
-                                                        <th>Jenis Buku</th>
+                                                        <th>Kategori Buku</th>
                                                         <th>Foto Cover</th>
                                                         <th>Validasi</th>
                                                     </tr>
@@ -64,7 +64,7 @@
                                                             <td>{{ date('l, d F Y', strtotime($row->created_at)) }}</td>
                                                             <td>{{ $row->judul_buku }}</td>
                                                             <td>{{ $row->jumlah_buku }}</td>
-                                                            <td>{{ $row->jenis_buku }}</td>
+                                                            <td>{{ $row->kategori->nama }}</td>
                                                             <td><img src="{{ url('foto_cover/' . $row->foto_cover) }}"
                                                                     width="50px">
                                                             </td>
@@ -80,27 +80,27 @@
                                 <!--Terverifikasi-->
                                 <div class="tab-pane fade" id="home2" role="tabpanel2">
                                     <div class="pd-20">
-                                        @foreach ($diterima as $i => $row)
-                                            <div class="table-responsive">
-                                                <table class="display expandable-table" style="width:100%">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>No</th>
-                                                            <th>Nomor Donasi</th>
-                                                            <th>Nama Donatur</th>
-                                                            <th>Email Donatur</th>
-                                                            <th>Alamat Donatur</th>
-                                                            <th>No Hp Donatur</th>
-                                                            <th>Judul Buku</th>
-                                                            <th>Jumlah Buku</th>
-                                                            <th>Jenis Buku</th>
-                                                            <th>Foto Cover</th>
-                                                            <th>Bukti Foto</th>
-                                                            <th>Status Donasi</th>
-                                                            <th>Validasi</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
+                                        <div class="table-responsive">
+                                            <table class="display expandable-table" style="width:100%" id="table-report2">
+                                                <thead>
+                                                    <tr>
+                                                        <th>No</th>
+                                                        <th>Nomor Donasi</th>
+                                                        <th>Nama Donatur</th>
+                                                        <th>Email Donatur</th>
+                                                        <th>Alamat Donatur</th>
+                                                        <th>No Hp Donatur</th>
+                                                        <th>Judul Buku</th>
+                                                        <th>Jumlah Buku</th>
+                                                        <th>Jenis Buku</th>
+                                                        <th>Foto Cover</th>
+                                                        <th>Bukti Foto</th>
+                                                        <th>Status Donasi</th>
+                                                        <th>Validasi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($diterima as $i => $row)
                                                         <tr>
                                                             <td>{{ ++$i }}</td>
                                                             <td>{{ $row->nomor_donasi }}</td>
@@ -110,7 +110,7 @@
                                                             <td>{{ $row->no_hp }}</td>
                                                             <td>{{ $row->judul_buku }}</td>
                                                             <td>{{ $row->jumlah_buku }}</td>
-                                                            <td>{{ $row->jenis_buku }}</td>
+                                                            <td>{{ $row->kategori->nama }}</td>
                                                             <td><img src="{{ url('foto_cover/' . $row->foto_cover) }}"
                                                                     width="80px">
                                                             </td>
@@ -131,10 +131,10 @@
                                                                 </form>
                                                             </td>
                                                         </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        @endforeach
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -153,11 +153,15 @@
                         <div class="col-md-10">
                             <p class="card-title">Data Donasi Buku</p>
                         </div>
+                        <div class="col-md-2">
+                            <a href="{{ route('cetakpdf.donasi') }}" class="btn btn-primary btn-sm">Cetak PDF</a>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <div class="table-responsive">
-                                <table class="display expandable-table" style="width:100%">
+                                <div class="mb-3" id="btn-print"></div>
+                                <table class="display expandable-table" style="width:100%" id="table-report3">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -169,7 +173,7 @@
                                             <th>Tanggal Donasi</th>
                                             <th>Judul Buku</th>
                                             <th>Jumlah Buku</th>
-                                            <th>Jenis Buku</th>
+                                            <th>Kategori Buku</th>
                                             <th>Foto Cover</th>
                                             <th>Upload Bukti</th>
                                         </tr>
@@ -186,8 +190,9 @@
                                                 <td>{{ date('l, d F Y', strtotime($row->created_at)) }}</td>
                                                 <td>{{ $row->judul_buku }}</td>
                                                 <td>{{ $row->jumlah_buku }}</td>
-                                                <td>{{ $row->jenis_buku }}</td>
-                                                <td><img src="{{ url('foto_cover/' . $row->foto_cover) }}" width="50px">
+                                                <td>{{ $row->kategori->nama }}</td>
+                                                <td><img src="{{ url('foto_cover/' . $row->foto_cover) }}"
+                                                        width="50px">
                                                 </td>
                                                 <td><img src="{{ url('upload_bukti/' . $row->upload_bukti) }}"
                                                         width="50px">
@@ -220,4 +225,13 @@
             </div>
         </div>
     @endforeach
+@endsection
+@section('javascript')
+    <script>
+        $(document).ready(function() {
+            var tableLaporan1 = $('#table-report1').DataTable({});
+            var tableLaporan2 = $('#table-report2').DataTable({});
+            var tableLaporan3 = $('#table-report3').DataTable({});
+        });
+    </script>
 @endsection

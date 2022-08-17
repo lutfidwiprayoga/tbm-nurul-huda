@@ -18,7 +18,7 @@ class CreateDonasisTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('judul_buku');
             $table->string('jumlah_buku');
-            $table->string('jenis_buku');
+            $table->string('kategori_id');
             $table->string('foto_cover');
             $table->string('status');
             $table->string('upload_bukti')->nullable();

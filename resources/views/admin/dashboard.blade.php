@@ -60,7 +60,7 @@
                 <div class="col-md-6 stretch-card transparent">
                     <div class="card card-light-danger">
                         <div class="card-body">
-                            <p class="mb-4">Total Jadwak</p>
+                            <p class="mb-4">Total Jadwal</p>
                             <p class="fs-30 mb-2">{{ $jadwal }}</p>
                         </div>
                     </div>
@@ -71,8 +71,8 @@
                 <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
                     <div class="card card-light-blue">
                         <div class="card-body">
-                            <p class="mb-4">Number of Meetings</p>
-                            <p class="fs-30 mb-2">34040</p>
+                            <p class="mb-4">Total Donasi</p>
+                            <p class="fs-30 mb-2">{{ $donasi }}</p>
                         </div>
                     </div>
                 </div>
@@ -87,4 +87,69 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div id="rekapan"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+@section('javascript')
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <!--Target OA Win Java-->
+    <script>
+        var barColors = (function() {
+            var colors = [],
+                base = Highcharts.getOptions().colors[0],
+                i;
+            for (i = 0; i < 10; i += 1) {
+                // Start out with a darkened base color (negative brighten), and end
+                // up with a much brighter color
+                colors.push(Highcharts.color(base).brighten((i - 3) / 7).get());
+            }
+            return colors;
+        }());
+        Highcharts.setOptions({
+            colors: ['#4747A1']
+        });
+        Highcharts.chart('rekapan', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Total Donasi Buku Masuk Per Bulan'
+            },
+            xAxis: {
+                categories: {!! json_encode($donate) !!},
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: '#DONASI'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">Total : </td>' +
+                    '<td style="padding:0"><b>{point.y:.f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Donasi Buku',
+                data: {!! json_encode($donate_total) !!}
+            }]
+        });
+    </script>
+@endsection
 @endsection

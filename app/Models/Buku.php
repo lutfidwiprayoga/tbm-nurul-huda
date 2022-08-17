@@ -16,13 +16,16 @@ class Buku extends Model
         'tahun_terbit',
         'jumlah_halaman',
         'jumlah_buku',
-        'jenis_buku',
-        'kategori',
+        'kategori_id',
         'foto_cover',
     ];
 
     public function pinjams()
     {
         return $this->hasMany(PeminjamanBuku::class);
+    }
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'kategori_id', 'id');
     }
 }

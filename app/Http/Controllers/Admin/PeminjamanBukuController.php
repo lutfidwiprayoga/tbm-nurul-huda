@@ -14,13 +14,13 @@ class PeminjamanBukuController extends Controller
     {
         $murid = Murid::all();
         $buku = Buku::all();
-        $pinjam = PeminjamanBuku::get();
-        return view('admin.peminjaman.index', compact('pinjam', 'murid', 'buku'));
+        $peminjaman = PeminjamanBuku::get();
+        return view('admin.peminjaman.index', compact('peminjaman', 'murid', 'buku'));
     }
 
     public function pinjam(Request $request)
     {
-        // dd($request->all());
+
         $pinjam = PeminjamanBuku::create([
             'buku_id' => $request->buku_id,
             'murid_id' => $request->murid_id,
@@ -30,7 +30,6 @@ class PeminjamanBukuController extends Controller
             'keterangan' => $request->keterangan,
         ]);
         $buku = Buku::where('id', $pinjam->buku_id)->first();
-        // $buku = Buku::find($request->input('id'));
         $buku->jumlah_buku -= $pinjam->jumlah_pinjam;
         $buku->save();
 
@@ -38,13 +37,12 @@ class PeminjamanBukuController extends Controller
     }
     public function kembali(Request $request, $id)
     {
-        // dd($request->all());
+
         $pinjam = PeminjamanBuku::find($id);
         $pinjam->tanggal_kembali = now();
         $pinjam->status = 'Selesai';
         $pinjam->save();
         $buku = Buku::where('id', $pinjam->buku_id)->first();
-        // $buku = Buku::find($request->input('id'));
         $buku->jumlah_buku += $pinjam->jumlah_pinjam;
         $buku->save();
 
