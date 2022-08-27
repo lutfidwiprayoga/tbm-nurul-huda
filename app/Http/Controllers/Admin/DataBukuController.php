@@ -22,13 +22,20 @@ class DataBukuController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $now = Carbon::now();
         $tanggal = $now->day . $now->month . $now->year;
         $max_id = DB::table('bukus')->max('id');
         $nomor_urut = $max_id + 1;
-        $buku = Buku::latest()->get();
+        if (request()->cari) {
+            $cari = $request->cari;
+            $buku = Buku::where('kode_buku', 'LIKE', '%' . $cari . '%')
+                ->orWhere('judul_buku', 'LIKE', '%' . $cari . '%')
+                ->latest()->get();
+        } else {
+            $buku = Buku::latest()->get();
+        }
         $kategori = Kategori::get();
         return view('admin.databuku.index', compact('buku', 'tanggal', 'nomor_urut', 'kategori'));
     }

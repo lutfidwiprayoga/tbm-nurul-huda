@@ -15,7 +15,7 @@
                         <div class="col-md-10">
                             <p class="card-title">Data Murid</p>
                         </div>
-                        <div class="col-md-2 pull-right">
+                        <div class="col-md-2 text-right">
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                                 data-target="#muridModal">
                                 Tambah Murid
@@ -25,15 +25,28 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="table-responsive">
+                                <div class="row" style="float: right">
+                                    <div class="col-md-12">
+                                        <form action="{{ route('murid.index') }}" method="GET">
+                                            <div class="form-group row mb-0">
+                                                <label class="col-sm-3 col-form-label">Cari</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="cari" class="form-control">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                                 <table class="display expandable-table" style="width:100%" id="table-report">
                                     <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>Nama</th>
                                             <th>Alamat</th>
+                                            <th>Tanggal Lahir</th>
                                             <th>Umur</th>
                                             <th>Sekolah</th>
-                                            <th>Aksi</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -42,14 +55,21 @@
                                                 <td>{{ ++$i }}</td>
                                                 <td>{{ $row->nama }}</td>
                                                 <td>{{ $row->alamat }}</td>
-                                                <td>{{ $row->umur }} Tahun</td>
+                                                <td>{{ date('d F Y', strtotime($row->tanggal_lahir)) }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($row->tanggal_lahir)->diffInYears() }}
+                                                    Tahun
+                                                </td>
                                                 <td>{{ $row->sekolah }}</td>
                                                 <td>
-                                                    <form action="{{ route('murid.destroy', $row->id) }}" method="POST">
-                                                        @csrf @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                                                    </form>
-
+                                                    @if ($row->status == 'Aktif')
+                                                        <button class="btn btn-inverse-success btn-sm"
+                                                            data-target="#ubahStatus{{ $row->id }}"
+                                                            data-toggle="modal">{{ $row->status }}</button>
+                                                    @else
+                                                        <button class="btn btn-inverse-danger btn-sm"
+                                                            data-target="#ubahStatus{{ $row->id }}"
+                                                            data-toggle="modal">{{ $row->status }}</button>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -90,9 +110,9 @@
                                             </div>
                                         </div>
                                         <div class="form-group row mb-0">
-                                            <label class="col-sm-4 col-form-label">Umur</label>
-                                            <div class="col-sm-4">
-                                                <input type="number" class="form-control" name="umur" required>
+                                            <label class="col-sm-4 col-form-label">Tanggal Lahir</label>
+                                            <div class="col-sm-8">
+                                                <input type="date" class="form-control" name="tanggal_lahir" required>
                                             </div>
                                         </div>
                                         <div class="form-group row mb-0">
@@ -101,6 +121,7 @@
                                                 <input type="text" class="form-control" name="sekolah" required>
                                             </div>
                                         </div>
+                                        <input type="hidden" name="status" value="Aktif">
                                     </div>
                                 </div>
                                 <div class="row mt-3" style="justify-content: center">
@@ -116,11 +137,73 @@
             </div>
         </div>
     </div>
+    <!-- Modal Update Status -->
+    @foreach ($murid as $row)
+        <div class="modal fade" id="ubahStatus{{ $row->id }}" tabindex="-1" aria-labelledby="muridModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>Form Input Tambah Data Murid</strong>
+                            </div>
+                            <div class="card-body">
+                                <form class="form-sample" action="{{ route('murid.update', $row->id) }}" method="post"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group row mb-0">
+                                                <label class="col-sm-4 col-form-label">Status Murid</label>
+                                                <div class="col-sm-8">
+                                                    <select name="status" class="form-control">
+                                                        <option value="Aktif">Aktif</option>
+                                                        <option value="Tidak Aktif">Tidak Aktif</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3" style="justify-content: center">
+                                        <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fa fa-dot-circle-o"></i> Simpan
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
 @endsection
-@section('javascript')
+{{-- @section('javascript')
     <script>
         $(document).ready(function() {
             var tableLaporan = $('#table-report').DataTable({});
         });
     </script>
-@endsection
+    <script>
+        $(document).ready(function() {
+            var table = $('#table-report').DataTable();
+            $("#table-report tfoot tr th").each(function(i) {
+                var select = $('<select><option value=""></option></select>')
+                    .appendTo($(this).empty())
+                    .on('change', function() {
+                        var val = $(this).val();
+                        table.column(i)
+                            .search(val ? '^' + $(this).val() + '$' :
+                                val, true, false)
+                            .draw();
+                    });
+                table.column(i).data().unique().sort().each(function(d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>')
+                });
+            });
+        });
+    </script>
+@endsection --}}

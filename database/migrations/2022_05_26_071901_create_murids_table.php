@@ -17,8 +17,9 @@ class CreateMuridsTable extends Migration
             $table->id();
             $table->string('nama');
             $table->string('alamat');
-            $table->string('umur');
+            $table->date('tanggal_lahir');
             $table->string('sekolah');
+            $table->string('status');
             $table->timestamps();
         });
     }

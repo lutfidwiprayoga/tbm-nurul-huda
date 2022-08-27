@@ -13,5 +13,6 @@ class Jadwal extends Model
         'tanggal',
         'nama_pengajar',
         'mata_pelajaran',
+        'jam',
     ];
 }

@@ -15,7 +15,7 @@
                         <div class="col-md-10">
                             <p class="card-title">Peminjaman Buku</p>
                         </div>
-                        <div class="col-md-2 pull-right">
+                        <div class="col-md-2 text-right">
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                                 data-target="#pinjamBuku">
                                 Pinjam Buku
@@ -25,6 +25,18 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="table-responsive">
+                                <div class="row" style="float: right">
+                                    <div class="col-md-12">
+                                        <form action="{{ route('pinjambuku.index') }}" method="GET">
+                                            <div class="form-group row mb-0">
+                                                <label class="col-sm-3 col-form-label">Cari</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="cari" class="form-control">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                                 <table class="display expandable-table" style="width:100%" id="table-report">
                                     <thead>
                                         <tr>
@@ -68,13 +80,9 @@
                                                 <td>{{ $row->keterangan }}</td>
                                                 @if ($row->tanggal_kembali == null)
                                                     <td>
-                                                        <form action="{{ route('pinjambuku.kembali', $row->id) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('PUT')
-                                                            <button type="submit"
-                                                                class="btn btn-danger btn-sm">Kembali</button>
-                                                        </form>
+                                                        <button class="btn btn-inverse-danger btn-sm"
+                                                            data-target="#sudahKembali{{ $row->id }}"
+                                                            data-toggle="modal">Kembali</button>
                                                     </td>
                                                 @else
                                                     <td></td>
@@ -157,11 +165,44 @@
             </div>
         </div>
     </div>
+    <!-- Modal Delete Data -->
+    @foreach ($peminjaman as $row)
+        <div class="modal fade" id="sudahKembali{{ $row->id }}">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal-content bg-default">
+                    <div class="modal-body">
+                        <div class="card">
+                            <div class="card-header">Pengembalian Buku</div>
+                            <div class="card-body">
+                                <form action="{{ route('pinjambuku.kembali', $row->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <p>Apakah anda Yakin Buku {{ $row->judul_buku }} Sudah Dikembalikan?&hellip;
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"style="justify-content: center">
+                                        <button type="button" class="btn btn-light" data-dismiss="modal">Tidak</button>
+                                        <button type="submit" class="btn btn-success">Ya,
+                                            Kembalikan</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    @endforeach
 @endsection
-@section('javascript')
+{{-- @section('javascript')
     <script>
         $(document).ready(function() {
             var tableLaporan = $('#table-report').DataTable({});
         });
     </script>
-@endsection
+@endsection --}}

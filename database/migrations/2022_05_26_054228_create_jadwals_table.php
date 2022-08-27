@@ -18,6 +18,7 @@ class CreateJadwalsTable extends Migration
             $table->string('nama_pengajar');
             $table->date('tanggal');
             $table->string('mata_pelajaran');
+            $table->time('jam');
             $table->timestamps();
         });
     }

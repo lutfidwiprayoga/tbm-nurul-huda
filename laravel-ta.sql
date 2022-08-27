@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 22 Jul 2022 pada 11.52
+-- Waktu pembuatan: 27 Agu 2022 pada 15.19
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 8.1.6
 
@@ -46,11 +46,11 @@ CREATE TABLE `bukus` (
 --
 
 INSERT INTO `bukus` (`id`, `kode_buku`, `judul_buku`, `nama_pengarang`, `tahun_terbit`, `jumlah_halaman`, `jumlah_buku`, `kategori_id`, `foto_cover`, `created_at`, `updated_at`) VALUES
-(1, 'TBM-162022001', 'Kisah Si Kancil', 'Si Pengarang', '2001', '100', '2', '5', 'TBM.png', '2022-05-28 07:52:06', '2022-06-01 09:29:13'),
+(1, 'TBM-162022001', 'Kisah Si Kancil', 'Si Pengarang', '2001', '100', '1', '5', 'TBM.png', '2022-05-28 07:52:06', '2022-08-27 05:28:08'),
 (2, 'TBM-162022002', 'Lagu Tradisional', 'WR. Supratman', '1999', '50', '4', '4', 'logo.svg', '2022-05-29 22:39:47', '2022-06-01 08:26:07'),
 (3, 'TBM-162022003', 'Ari anak terlantar', 'Suprimin', '2001', '100', '2', '4', 'admin.jpg', '2022-06-01 05:54:26', '2022-06-01 08:21:44'),
 (5, 'TBM-262022004', 'Diki vs Puntent', 'Suprimin', '2022', '200', '3', '4', 'logo2.png', '2022-06-01 20:44:30', '2022-06-01 20:44:30'),
-(7, 'TBM-2272022006', 'Kisah Sang Rasullah', 'Imam Bukhori', '1000', '1500', '5', '1', 'TBM-2272022006.jpg', '2022-07-21 20:54:54', '2022-07-21 20:54:54');
+(7, 'TBM-2272022006', 'Kisah Sang Rasullah', 'Imam Bukhori', '1000', '1500', '4', '1', 'TBM-2272022006.jpg', '2022-07-21 20:54:54', '2022-07-30 05:08:16');
 
 -- --------------------------------------------------------
 
@@ -90,7 +90,11 @@ INSERT INTO `donasis` (`id`, `nomor_donasi`, `user_id`, `nama`, `email`, `alamat
 (7, 'DNTBM-2072022007', NULL, 'Dias', 'dias@gmail.com', 'Banyuwangi', '0812221232111', 'Si anak Paling', '2', '1', 'Sudah Diterima', 'Dias.jpg', NULL, '2022-07-20 05:11:16', '2022-07-21 21:25:15'),
 (28, 'DNTBM-2272022008', NULL, 'Dimas Pangest', 'dimas@gmail.com', 'Banyuwangi', '082212342112', 'Omar Bin Khattab', '5', '1', 'Sudah Diterima', 'Dimas Pangest.jpg', NULL, '2022-07-21 21:21:58', '2022-07-21 21:25:32'),
 (29, 'DNTBM-22720220029', NULL, 'Dilan', 'dilan@gmail.com', 'Bulusan', '082232124452', 'Utsman Bin Affan', '5', '1', 'Sudah Diterima', 'Dilan.jpg', NULL, '2022-07-21 21:24:32', '2022-07-21 21:25:34'),
-(30, 'DNTBM-22720220030', NULL, 'Fikri', 'fikri@gmail.com', 'banyuwangi', '08922123212', 'Ali Bin Abi Thalib', '5', '1', 'Menunggu Verifikasi', 'Fikri.jpg', NULL, '2022-07-22 02:28:12', '2022-07-22 02:28:12');
+(30, 'DNTBM-22720220030', NULL, 'Fikri', 'fikri@gmail.com', 'banyuwangi', '08922123212', 'Ali Bin Abi Thalib', '5', '1', 'Menunggu Verifikasi', 'Fikri.jpg', NULL, '2022-07-22 02:28:12', '2022-07-22 02:28:12'),
+(31, 'DNTBM-30720220031', NULL, 'Diana Suryadin', 'diana@gmail.com', 'Giri Banyuwangi', '08922123212', 'Dori Si Ikan', '5', '1', 'Menunggu Verifikasi', 'Diana Suryadin.png', NULL, '2022-07-30 00:24:14', '2022-07-30 00:24:14'),
+(32, 'DNTBM-27820220032', NULL, 'Samsudin', 'samsudin@gmail.cm', 'Blitar', '082221239921', 'Rara Muslim', '5', '1', 'Dikirim', 'Samsudin.png', 'Samsudin.png', '2022-08-26 22:08:54', '2022-08-26 22:20:02'),
+(33, 'DNTBM-27820220033', NULL, 'Gus Samsudin Marcel', 'samsudin@gmail.cm', 'Blitar', '082221239921', 'Sulap Jawa', '5', '1', 'Sudah Diterima', 'Gus Samsudin Marcel.jpg', 'Gus Samsudin Marcel.jpg', '2022-08-26 22:44:52', '2022-08-26 22:44:52'),
+(34, 'DNTBM-27820220034', NULL, 'Silvi', 'silvi@gmail.com', 'Banyuwangi', '08812232123', 'Rumah Kaca', '4', '3', 'Sudah Diterima', 'Silvi.png', 'Silvi.jpg', '2022-08-27 05:13:40', '2022-08-27 05:14:45');
 
 -- --------------------------------------------------------
 
@@ -119,6 +123,7 @@ CREATE TABLE `jadwals` (
   `nama_pengajar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tanggal` date NOT NULL,
   `mata_pelajaran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jam` time NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -127,10 +132,11 @@ CREATE TABLE `jadwals` (
 -- Dumping data untuk tabel `jadwals`
 --
 
-INSERT INTO `jadwals` (`id`, `nama_pengajar`, `tanggal`, `mata_pelajaran`, `created_at`, `updated_at`) VALUES
-(4, 'Nabila', '2022-06-03', 'Bahasa Arab', '2022-05-28 09:42:04', '2022-05-29 22:48:35'),
-(5, 'Fatimah', '2022-06-01', 'IPA', '2022-05-28 09:42:21', '2022-05-28 09:42:21'),
-(6, 'Rifki', '2022-05-30', 'Psikologi Anak', '2022-05-28 09:42:57', '2022-05-28 09:42:57');
+INSERT INTO `jadwals` (`id`, `nama_pengajar`, `tanggal`, `mata_pelajaran`, `jam`, `created_at`, `updated_at`) VALUES
+(4, 'Nabila', '2022-06-03', 'Bahasa Arab', '09:00:00', '2022-05-28 09:42:04', '2022-08-26 23:48:22'),
+(5, 'Fatimah', '2022-06-01', 'IPA', '10:30:00', '2022-05-28 09:42:21', '2022-08-26 23:48:51'),
+(6, 'Rifki', '2022-05-30', 'Psikologi Anak', '09:00:00', '2022-05-28 09:42:57', '2022-08-26 23:49:06'),
+(8, 'Hotim', '2022-08-28', 'Seni Tari', '09:00:00', '2022-08-26 23:50:30', '2022-08-26 23:50:30');
 
 -- --------------------------------------------------------
 
@@ -194,8 +200,9 @@ CREATE TABLE `murids` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `alamat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `umur` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tanggal_lahir` date NOT NULL,
   `sekolah` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -204,10 +211,10 @@ CREATE TABLE `murids` (
 -- Dumping data untuk tabel `murids`
 --
 
-INSERT INTO `murids` (`id`, `nama`, `alamat`, `umur`, `sekolah`, `created_at`, `updated_at`) VALUES
-(1, 'Laha', 'Langring', '13', 'MTS Darussholah', '2022-05-26 00:32:05', '2022-05-26 00:32:05'),
-(4, 'Mualim', 'Langring', '13', 'MI Darussholah', '2022-06-01 21:57:41', '2022-06-01 21:57:41'),
-(6, 'Ayu', 'Langring', '12', 'MI Darussholah', '2022-06-01 21:59:17', '2022-06-01 21:59:17');
+INSERT INTO `murids` (`id`, `nama`, `alamat`, `tanggal_lahir`, `sekolah`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Laha', 'Langring', '2010-05-22', 'MTS Darussholah', 'Aktif', '2022-05-26 00:32:05', '2022-08-27 05:15:36'),
+(4, 'Mualim', 'Langring', '2012-01-15', 'MI Darussholah', 'Aktif', '2022-06-01 21:57:41', '2022-08-26 23:40:34'),
+(6, 'Ayu', 'Langring', '2014-02-10', 'MI Darussholah', 'Aktif', '2022-06-01 21:59:17', '2022-08-26 23:40:31');
 
 -- --------------------------------------------------------
 
@@ -245,7 +252,10 @@ CREATE TABLE `peminjaman_bukus` (
 --
 
 INSERT INTO `peminjaman_bukus` (`id`, `buku_id`, `murid_id`, `tanggal_pinjam`, `tanggal_kembali`, `jumlah_pinjam`, `status`, `keterangan`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, '2022-06-01 00:00:00', '2022-06-01 16:29:13', '1', 'Selesai', 'Sek pinjam', '2022-06-01 08:24:37', '2022-06-01 09:29:13');
+(1, 1, 1, '2022-06-01 00:00:00', '2022-06-01 16:29:13', '1', 'Selesai', 'Sek pinjam', '2022-06-01 08:24:37', '2022-06-01 09:29:13'),
+(3, 7, 6, '2022-07-30 00:00:00', NULL, '1', 'Dipinjam', 'Buat Nambah Ilmu', '2022-07-30 05:08:16', '2022-07-30 05:08:16'),
+(4, 1, 1, '2022-08-31 00:00:00', '2022-08-27 12:28:08', '1', 'Selesai', 'Buat Baca', '2022-08-27 04:18:11', '2022-08-27 05:28:08'),
+(5, 1, 6, '2022-09-01 00:00:00', NULL, '1', 'Dipinjam', 'Buat Nge halu', '2022-08-27 05:20:42', '2022-08-27 05:20:42');
 
 -- --------------------------------------------------------
 
@@ -382,7 +392,7 @@ ALTER TABLE `bukus`
 -- AUTO_INCREMENT untuk tabel `donasis`
 --
 ALTER TABLE `donasis`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT untuk tabel `failed_jobs`
@@ -394,7 +404,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT untuk tabel `jadwals`
 --
 ALTER TABLE `jadwals`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `kategoris`
@@ -418,7 +428,7 @@ ALTER TABLE `murids`
 -- AUTO_INCREMENT untuk tabel `peminjaman_bukus`
 --
 ALTER TABLE `peminjaman_bukus`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `personal_access_tokens`

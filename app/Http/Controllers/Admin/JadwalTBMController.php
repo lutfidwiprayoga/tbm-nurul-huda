@@ -13,11 +13,16 @@ class JadwalTBMController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $pagename = 'Data Jadwal TBM';
-        $data = Jadwal::all();
-        return view('admin.jadwalTBM.index', compact('data', 'pagename'));
+        if (request()->cari) {
+            $cari = $request->cari;
+            $jadwal = Jadwal::where('nama_pengajar', 'LIKE', '%' . $cari . '%')->latest()->get();
+        } else {
+            $jadwal = Jadwal::latest()->get();
+        }
+        return view('admin.jadwalTBM.index', compact('jadwal', 'pagename'));
     }
 
     /**

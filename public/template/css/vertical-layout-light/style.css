@@ -26277,6 +26277,15 @@ body.avgrund-active {
   color: #ffffff;
   font-size: 14px;
 }
+.expandable-table tfoot tr th {
+  background: #4B49AC;
+  padding: 10px;
+  color: #ffffff;
+  font-size: 14px;
+}
+.expandable-table tfoot tr th select{
+  height: 1.8rem;
+}
 
 .expandable-table thead tr th:first-child {
   border-radius: 8px 0 0 8px;

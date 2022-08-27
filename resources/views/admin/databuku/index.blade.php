@@ -15,7 +15,7 @@
                         <div class="col-md-10">
                             <p class="card-title">Data Buku</p>
                         </div>
-                        <div class="col-md-2 pull-right">
+                        <div class="col-md-2 text-right">
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                                 data-target="#bukuModal">
                                 Tambah Buku
@@ -25,6 +25,18 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="table-responsive">
+                                <div class="row" style="float: right">
+                                    <div class="col-md-12">
+                                        <form action="{{ route('buku.index') }}" method="GET">
+                                            <div class="form-group row mb-0">
+                                                <label class="col-sm-3 col-form-label">Cari</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="cari" class="form-control">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                                 <table class="display expandable-table" style="width:100%" id="table-report">
                                     <thead>
                                         <tr>
@@ -57,10 +69,6 @@
                                                         data-toggle="modal" data-target="#updateBuku{{ $row->id }}">
                                                         Update
                                                     </button>
-                                                    <form action="{{ route('buku.destroy', $row->id) }}" method="POST">
-                                                        @csrf @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -139,7 +147,8 @@
                                                         <button class="btn btn-sm btn-primary"
                                                             type="button">Upload</button>
                                                     </div>
-                                                    <input type="file" class="form-control" name="foto_cover" required>
+                                                    <input type="file" class="form-control" name="foto_cover"
+                                                        required>
                                                 </div>
                                             </div>
                                         </div>
@@ -200,10 +209,10 @@
         </div>
     @endforeach
 @endsection
-@section('javascript')
+{{-- @section('javascript')
     <script>
         $(document).ready(function() {
             var tableLaporan = $('#table-report').DataTable({});
         });
     </script>
-@endsection
+@endsection --}}

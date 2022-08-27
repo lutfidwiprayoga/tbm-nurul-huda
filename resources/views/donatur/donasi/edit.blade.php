@@ -10,7 +10,7 @@
                                 <tr id="status_id">
                                     <th width="50%">Status Pemesanan</th>
                                     <th width="30px">:</th>
-                                    @if ($donasi->status == 'Menunggu Verifikasi')
+                                    @if ($donasi->status == 'Terverifikasi')
                                         <th style="color: orange" id="status">{{ $donasi->status }}</th>
                                     @elseif ($donasi->status == 'Dikirim')
                                         <th style="color: blue" id="status">{{ $donasi->status }}</th>

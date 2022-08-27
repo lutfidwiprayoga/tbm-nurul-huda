@@ -9,7 +9,7 @@ class Murid extends Model
 {
     use HasFactory;
     protected $table = 'murids';
-    protected $fillable = ['nama', 'alamat', 'umur', 'sekolah'];
+    protected $fillable = ['nama', 'alamat', 'tanggal_lahir', 'sekolah', 'status'];
 
     public function pinjams()
     {

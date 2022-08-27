@@ -10,11 +10,17 @@ use Illuminate\Http\Request;
 
 class PeminjamanBukuController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $murid = Murid::all();
-        $buku = Buku::all();
-        $peminjaman = PeminjamanBuku::get();
+        $buku = Buku::where('jumlah_buku', '>', 0)->get();
+        if (request()->cari) {
+            $cari = $request->cari;
+            $peminjaman = PeminjamanBuku::join('bukus', 'peminjaman_bukus.buku_id', '=', 'bukus.id')
+                ->where('bukus.judul_buku', 'LIKE', '%' . $cari . '%')->get();
+        } else {
+            $peminjaman = PeminjamanBuku::get();
+        }
         return view('admin.peminjaman.index', compact('peminjaman', 'murid', 'buku'));
     }
 

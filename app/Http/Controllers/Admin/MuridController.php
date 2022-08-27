@@ -13,9 +13,14 @@ class MuridController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $murid = Murid::all();
+        if (request()->cari) {
+            $cari = $request->cari;
+            $murid = Murid::where('nama', 'LIKE', '%' . $cari . '%')->latest()->get();
+        } else {
+            $murid = Murid::latest()->get();
+        }
         return view('admin.murid.index', compact('murid'));
     }
 
@@ -72,7 +77,10 @@ class MuridController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $murid = Murid::find($id);
+        $murid->status = $request->status;
+        $murid->save();
+        return redirect()->back()->with('sukses', 'Status Berhasil Diubah');
     }
 
     /**

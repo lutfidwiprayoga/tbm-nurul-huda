@@ -69,7 +69,7 @@ class DonasiController extends Controller
             'judul_buku' => $request->judul_buku,
             'jumlah_buku' => $request->jumlah_buku,
             'kategori_id' => $request->kategori_id,
-            'status' => 'Menunggu Verifikasi',
+            'status' => 'Terverifikasi',
             'foto_cover' => $filename,
         ]);
         // if ($request->hasFile('foto_cover')) {
