@@ -36,7 +36,7 @@
             <li class="nav-item {{ request()->is('admin/murid*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('murid.index') }}">
                     <i class="icon-grid menu-icon"></i>
-                    <span class="menu-title">Data Murid</span>
+                    <span class="menu-title">Data User</span>
                 </a>
             </li>
             <li class="nav-item {{ request()->is('admin/jadwal*') ? 'active' : '' }}">

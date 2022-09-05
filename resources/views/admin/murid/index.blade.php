@@ -31,7 +31,7 @@
                                             <div class="form-group row mb-0">
                                                 <label class="col-sm-3 col-form-label">Cari</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" name="cari" class="form-control">
+                                                    <input type="text" name="cari_murid" class="form-control">
                                                 </div>
                                             </div>
                                         </form>
@@ -82,7 +82,64 @@
             </div>
         </div>
     </div>
-    <!-- Modal Tambah data-->
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <p class="card-title">Data Pengajar</p>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                data-target="#pengajarModal">
+                                Tambah Pengajar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <div class="row" style="float: right">
+                                    <div class="col-md-12">
+                                        <form action="{{ route('murid.index') }}" method="GET">
+                                            <div class="form-group row mb-0">
+                                                <label class="col-sm-3 col-form-label">Cari</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="cari_pengajar" class="form-control">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <table class="display expandable-table" style="width:100%" id="table-report">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama</th>
+                                            <th>Alamat</th>
+                                            <th>No HP</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($pengajar as $i => $row)
+                                            <tr>
+                                                <td>{{ ++$i }}</td>
+                                                <td>{{ $row->nama }}</td>
+                                                <td>{{ $row->alamat }}</td>
+                                                <td>{{ $row->no_hp }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Tambah data Murid-->
     <div class="modal fade" id="muridModal" tabindex="-1" aria-labelledby="muridModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -122,6 +179,54 @@
                                             </div>
                                         </div>
                                         <input type="hidden" name="status" value="Aktif">
+                                    </div>
+                                </div>
+                                <div class="row mt-3" style="justify-content: center">
+                                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa fa-dot-circle-o"></i> Simpan
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Tambah data Pengajar-->
+    <div class="modal fade" id="pengajarModal" tabindex="-1" aria-labelledby="muridModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Form Input Tambah Data Murid</strong>
+                        </div>
+                        <div class="card-body">
+                            <form class="form-sample" action="{{ route('pengajar.store') }}" method="post"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group row mb-0">
+                                            <label class="col-sm-4 col-form-label">Nama Pengajar</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" name="nama" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-0">
+                                            <label class="col-sm-4 col-form-label">Alamat</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" name="alamat" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-0">
+                                            <label class="col-sm-4 col-form-label">No HP</label>
+                                            <div class="col-sm-8">
+                                                <input type="number" class="form-control" name="no_hp" required>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row mt-3" style="justify-content: center">

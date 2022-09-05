@@ -119,12 +119,9 @@
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <form action="{{ route('donasi.update', $row->id) }}"
-                                                                    method="POST">
-                                                                    @csrf @method('PUT')
-                                                                    <button type="submit"
-                                                                        class="btn btn-success btn-sm">Terima</button>
-                                                                </form>
+                                                                <button type="submit" class="btn btn-success btn-sm"
+                                                                    data-target="#terimaDonasi{{ $row->id }}"
+                                                                    data-toggle="modal">Terima</button>
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -333,6 +330,39 @@
                     </div>
                 </div>
             </div>
+        </div>
+    @endforeach
+    <!-- Modal Terima Data -->
+    @foreach ($diterima as $row)
+        <div class="modal fade" id="terimaDonasi{{ $row->id }}">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal-content bg-default">
+                    <div class="modal-body">
+                        <div class="card">
+                            <div class="card-header">Terima Donasi</div>
+                            <div class="card-body">
+                                <form action="{{ route('donasi.update', $row->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <p>Apakah Donasi Ini Sudah Diterima?&hellip;
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"style="justify-content: center">
+                                        <button type="button" class="btn btn-light" data-dismiss="modal">Tidak</button>
+                                        <button type="submit" class="btn btn-success">Ya,
+                                            Terima</button>
+                                    </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
         </div>
     @endforeach
 @endsection

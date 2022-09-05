@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Jadwal;
+use App\Models\Pengajar;
 use Illuminate\Http\Request;
 
 class JadwalTBMController extends Controller
@@ -21,8 +22,9 @@ class JadwalTBMController extends Controller
             $jadwal = Jadwal::where('nama_pengajar', 'LIKE', '%' . $cari . '%')->latest()->get();
         } else {
             $jadwal = Jadwal::latest()->get();
+            $pengajar = Pengajar::get();
         }
-        return view('admin.jadwalTBM.index', compact('jadwal', 'pagename'));
+        return view('admin.jadwalTBM.index', compact('jadwal', 'pagename', 'pengajar'));
     }
 
     /**
@@ -46,7 +48,7 @@ class JadwalTBMController extends Controller
     {
         $request->validate([
             'tanggal' => 'required',
-            'nama_pengajar' => 'required',
+            'pengajar_id' => 'required',
             'mata_pelajaran' => 'required',
         ]);
         $jadwal = $request->all();

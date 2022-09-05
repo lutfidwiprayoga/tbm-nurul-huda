@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\JadwalTBMController;
 use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\MuridController;
 use App\Http\Controllers\Admin\PeminjamanBukuController;
+use App\Http\Controllers\Admin\PengajarController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Donatur\CariController as DonaturCariController;
 use App\Http\Controllers\Donatur\DonasiController as DonaturDonasiController;
@@ -42,6 +43,7 @@ Route::prefix('admin')->group(function () {
     Route::resource('/jadwal', JadwalTBMController::class);
     Route::resource('/donasi', DonasiController::class);
     Route::resource('/murid', MuridController::class);
+    Route::resource('/pengajar', PengajarController::class);
     Route::get('/pinjambuku', [PeminjamanBukuController::class, 'index'])->name('pinjambuku.index');
     Route::post('/pinjambuku/tambah', [PeminjamanBukuController::class, 'pinjam'])->name('pinjambuku.pinjam');
     Route::put('/pinjambuku/kembali/{id}', [PeminjamanBukuController::class, 'kembali'])->name('pinjambuku.kembali');

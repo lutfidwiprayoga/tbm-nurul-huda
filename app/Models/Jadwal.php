@@ -11,8 +11,13 @@ class Jadwal extends Model
     protected $table = 'jadwals';
     protected $fillable = [
         'tanggal',
-        'nama_pengajar',
+        'pengajar_id',
         'mata_pelajaran',
         'jam',
     ];
+
+    public function pengajar()
+    {
+        return $this->belongsTo(Pengajar::class, 'pengajar_id', 'id');
+    }
 }

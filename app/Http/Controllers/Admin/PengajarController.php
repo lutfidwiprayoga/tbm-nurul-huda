@@ -3,32 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Murid;
 use App\Models\Pengajar;
 use Illuminate\Http\Request;
 
-class MuridController extends Controller
+class PengajarController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        if (request()->cari_murid) {
-            $cari_murid = $request->cari_murid;
-            $murid = Murid::where('nama', 'LIKE', '%' . $cari_murid . '%')->latest()->get();
-        } else {
-            $murid = Murid::latest()->get();
-        }
-        if (request()->cari_pengajar) {
-            $cari_pengajar = $request->cari_pengajar;
-            $pengajar = Pengajar::where('nama', 'LIKE', '%' . $cari_pengajar . '%')->latest()->get();
-        } else {
-            $pengajar = Pengajar::latest()->get();
-        }
-        return view('admin.murid.index', compact('murid', 'pengajar'));
+        //
     }
 
     /**
@@ -49,7 +36,7 @@ class MuridController extends Controller
      */
     public function store(Request $request)
     {
-        Murid::create($request->all());
+        Pengajar::create($request->all());
         return redirect()->back()->with('sukses', 'Data Berhasil Ditambahkan');
     }
 
@@ -84,10 +71,7 @@ class MuridController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $murid = Murid::find($id);
-        $murid->status = $request->status;
-        $murid->save();
-        return redirect()->back()->with('sukses', 'Status Berhasil Diubah');
+        //
     }
 
     /**
@@ -98,8 +82,6 @@ class MuridController extends Controller
      */
     public function destroy($id)
     {
-        $murid = Murid::find($id);
-        $murid->delete();
-        return redirect()->back()->with('sukses', 'Data berhasil dihapus');
+        //
     }
 }

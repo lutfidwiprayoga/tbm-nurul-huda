@@ -53,7 +53,7 @@
                                             <tr>
                                                 <td>{{ ++$i }}</td>
                                                 <td>{{ date('l, d F Y', strtotime($row->tanggal)) }}</td>
-                                                <td>{{ $row->nama_pengajar }}</td>
+                                                <td>{{ $row->pengajar->nama }}</td>
                                                 <td>{{ $row->mata_pelajaran }}</td>
                                                 <td>{{ date('H:i', strtotime($row->jam)) }} WIB</td>
                                                 <td>
@@ -107,7 +107,11 @@
                                         <div class="form-group row mb-0">
                                             <label class="col-sm-4 col-form-label">Nama Pengajar</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" name="nama_pengajar">
+                                                <select name="pengajar_id" class="form-control">
+                                                    @foreach ($pengajar as $peng)
+                                                        <option value="{{ $peng->id }}">{{ $peng->nama }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="form-group row mb-0">
@@ -173,7 +177,7 @@
                                                 <label class="col-sm-4 col-form-label">Nama Pengajar</label>
                                                 <div class="col-sm-8">
                                                     <input type="text" class="form-control" name="nama_pengajar"
-                                                        value="{{ $row->nama_pengajar }}">
+                                                        value="{{ $row->pengajar->nama }}">
                                                 </div>
                                             </div>
                                             <div class="form-group row mb-0">
@@ -213,7 +217,8 @@
                                     @method('DELETE')
                                     <div class="row">
                                         <div class="col-12">
-                                            <p>Apakah anda Yakin Menghapus Data Mengajar {{ $row->nama_pengajar }}?&hellip;
+                                            <p>Apakah anda Yakin Menghapus Data Mengajar
+                                                {{ $row->pengajar->nama }}?&hellip;
                                             </p>
                                         </div>
                                     </div>

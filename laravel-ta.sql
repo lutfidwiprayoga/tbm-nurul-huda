@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 27 Agu 2022 pada 15.19
+-- Waktu pembuatan: 05 Sep 2022 pada 13.08
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 8.1.6
 
@@ -92,7 +92,7 @@ INSERT INTO `donasis` (`id`, `nomor_donasi`, `user_id`, `nama`, `email`, `alamat
 (29, 'DNTBM-22720220029', NULL, 'Dilan', 'dilan@gmail.com', 'Bulusan', '082232124452', 'Utsman Bin Affan', '5', '1', 'Sudah Diterima', 'Dilan.jpg', NULL, '2022-07-21 21:24:32', '2022-07-21 21:25:34'),
 (30, 'DNTBM-22720220030', NULL, 'Fikri', 'fikri@gmail.com', 'banyuwangi', '08922123212', 'Ali Bin Abi Thalib', '5', '1', 'Menunggu Verifikasi', 'Fikri.jpg', NULL, '2022-07-22 02:28:12', '2022-07-22 02:28:12'),
 (31, 'DNTBM-30720220031', NULL, 'Diana Suryadin', 'diana@gmail.com', 'Giri Banyuwangi', '08922123212', 'Dori Si Ikan', '5', '1', 'Menunggu Verifikasi', 'Diana Suryadin.png', NULL, '2022-07-30 00:24:14', '2022-07-30 00:24:14'),
-(32, 'DNTBM-27820220032', NULL, 'Samsudin', 'samsudin@gmail.cm', 'Blitar', '082221239921', 'Rara Muslim', '5', '1', 'Dikirim', 'Samsudin.png', 'Samsudin.png', '2022-08-26 22:08:54', '2022-08-26 22:20:02'),
+(32, 'DNTBM-27820220032', NULL, 'Samsudin', 'samsudin@gmail.cm', 'Blitar', '082221239921', 'Rara Muslim', '5', '1', 'Sudah Diterima', 'Samsudin.png', 'Samsudin.png', '2022-08-26 22:08:54', '2022-09-05 04:01:46'),
 (33, 'DNTBM-27820220033', NULL, 'Gus Samsudin Marcel', 'samsudin@gmail.cm', 'Blitar', '082221239921', 'Sulap Jawa', '5', '1', 'Sudah Diterima', 'Gus Samsudin Marcel.jpg', 'Gus Samsudin Marcel.jpg', '2022-08-26 22:44:52', '2022-08-26 22:44:52'),
 (34, 'DNTBM-27820220034', NULL, 'Silvi', 'silvi@gmail.com', 'Banyuwangi', '08812232123', 'Rumah Kaca', '4', '3', 'Sudah Diterima', 'Silvi.png', 'Silvi.jpg', '2022-08-27 05:13:40', '2022-08-27 05:14:45');
 
@@ -120,7 +120,7 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `jadwals` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `nama_pengajar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pengajar_id` bigint(20) UNSIGNED NOT NULL,
   `tanggal` date NOT NULL,
   `mata_pelajaran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jam` time NOT NULL,
@@ -132,11 +132,12 @@ CREATE TABLE `jadwals` (
 -- Dumping data untuk tabel `jadwals`
 --
 
-INSERT INTO `jadwals` (`id`, `nama_pengajar`, `tanggal`, `mata_pelajaran`, `jam`, `created_at`, `updated_at`) VALUES
-(4, 'Nabila', '2022-06-03', 'Bahasa Arab', '09:00:00', '2022-05-28 09:42:04', '2022-08-26 23:48:22'),
-(5, 'Fatimah', '2022-06-01', 'IPA', '10:30:00', '2022-05-28 09:42:21', '2022-08-26 23:48:51'),
-(6, 'Rifki', '2022-05-30', 'Psikologi Anak', '09:00:00', '2022-05-28 09:42:57', '2022-08-26 23:49:06'),
-(8, 'Hotim', '2022-08-28', 'Seni Tari', '09:00:00', '2022-08-26 23:50:30', '2022-08-26 23:50:30');
+INSERT INTO `jadwals` (`id`, `pengajar_id`, `tanggal`, `mata_pelajaran`, `jam`, `created_at`, `updated_at`) VALUES
+(4, 1, '2022-06-03', 'Bahasa Arab', '09:00:00', '2022-05-28 09:42:04', '2022-08-26 23:48:22'),
+(5, 2, '2022-06-01', 'IPA', '10:30:00', '2022-05-28 09:42:21', '2022-08-26 23:48:51'),
+(6, 3, '2022-05-30', 'Psikologi Anak', '09:00:00', '2022-05-28 09:42:57', '2022-08-26 23:49:06'),
+(8, 4, '2022-08-28', 'Seni Tari', '09:00:00', '2022-08-26 23:50:30', '2022-08-26 23:50:30'),
+(10, 3, '2022-09-11', 'Psikologi Anak', '09:10:00', '2022-09-05 03:48:33', '2022-09-05 03:48:33');
 
 -- --------------------------------------------------------
 
@@ -188,7 +189,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (7, '2022_05_26_055635_create_donasis_table', 1),
 (8, '2022_05_26_063522_create_peminjaman_bukus_table', 1),
 (9, '2022_05_26_071901_create_murids_table', 1),
-(10, '2022_07_22_031823_create_kategoris_table', 2);
+(10, '2022_07_22_031823_create_kategoris_table', 2),
+(11, '2022_09_05_095029_create_pengajars_table', 3);
 
 -- --------------------------------------------------------
 
@@ -256,6 +258,33 @@ INSERT INTO `peminjaman_bukus` (`id`, `buku_id`, `murid_id`, `tanggal_pinjam`, `
 (3, 7, 6, '2022-07-30 00:00:00', NULL, '1', 'Dipinjam', 'Buat Nambah Ilmu', '2022-07-30 05:08:16', '2022-07-30 05:08:16'),
 (4, 1, 1, '2022-08-31 00:00:00', '2022-08-27 12:28:08', '1', 'Selesai', 'Buat Baca', '2022-08-27 04:18:11', '2022-08-27 05:28:08'),
 (5, 1, 6, '2022-09-01 00:00:00', NULL, '1', 'Dipinjam', 'Buat Nge halu', '2022-08-27 05:20:42', '2022-08-27 05:20:42');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `pengajars`
+--
+
+CREATE TABLE `pengajars` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `alamat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `no_hp` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `pengajars`
+--
+
+INSERT INTO `pengajars` (`id`, `nama`, `alamat`, `no_hp`, `created_at`, `updated_at`) VALUES
+(1, 'Nabila', 'Rogojampi', '082213239542', '2022-09-05 03:12:13', '2022-09-05 03:12:13'),
+(2, 'Rifki', 'Muncar', '081223134451', '2022-09-05 03:12:13', '2022-09-05 03:12:13'),
+(3, 'Fatimah', 'Probolingo', '083842145512', '2022-09-05 03:12:13', '2022-09-05 03:12:13'),
+(4, 'Ela', 'Songgon', '082334256672', '2022-09-05 03:12:13', '2022-09-05 03:12:13'),
+(5, 'Zidan', 'Songgon', '081339356565', '2022-09-05 03:12:13', '2022-09-05 03:12:13'),
+(6, 'Hindun', 'Banyuwangi Kota', '089824525542', '2022-09-05 03:15:06', '2022-09-05 03:15:06');
 
 -- --------------------------------------------------------
 
@@ -364,6 +393,12 @@ ALTER TABLE `peminjaman_bukus`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `pengajars`
+--
+ALTER TABLE `pengajars`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
@@ -404,7 +439,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT untuk tabel `jadwals`
 --
 ALTER TABLE `jadwals`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `kategoris`
@@ -416,7 +451,7 @@ ALTER TABLE `kategoris`
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT untuk tabel `murids`
@@ -429,6 +464,12 @@ ALTER TABLE `murids`
 --
 ALTER TABLE `peminjaman_bukus`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT untuk tabel `pengajars`
+--
+ALTER TABLE `pengajars`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `personal_access_tokens`
